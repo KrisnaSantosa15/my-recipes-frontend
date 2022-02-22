@@ -81,10 +81,15 @@ export default {
     };
   },
   mounted() {
-    if (!this.id) {
+    if (this.$store.state.token != null) {
+      this.this.getRecipe();
+    } else if (!this.id) {
       this.$router.push("/recipes");
     } else {
-      this.getRecipe();
+      this.$router.push({
+        name: "login",
+        params: { error: "Anda harus login terlebih dahulu" },
+      });
     }
   },
   methods: {

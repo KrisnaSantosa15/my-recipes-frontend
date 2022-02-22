@@ -42,7 +42,7 @@ export default {
   color: #2c3e50;
 }
 
-#nav a.router-link-exact-active {
+#nav a.router-link-active {
   color: lightseagreen;
 }
 #nav a {

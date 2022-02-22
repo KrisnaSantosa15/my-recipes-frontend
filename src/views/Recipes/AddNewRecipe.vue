@@ -288,7 +288,10 @@ export default {
   },
   mounted() {
     if (!this.$store.state.token) {
-      this.$router.push("/login");
+      this.$router.push({
+        name: "login",
+        params: { error: "Anda harus login terlebih dahulu" },
+      });
     } else {
       this.getCategories();
       this.getLevels();

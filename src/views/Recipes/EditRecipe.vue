@@ -264,6 +264,8 @@ export default {
   mounted() {
     if (!this.$store.state.token) {
       this.$router.push("/login");
+    } else if (!this.id) {
+      this.$router.go(-1);
     } else {
       this.getCategories();
       this.getLevels();
@@ -287,8 +289,10 @@ export default {
               error.response.status === 401 ||
               error.response.status === 404
             ) {
-              this.$store.dispatch("clearToken");
-              this.$router.push("/login");
+              this.errorMessage = {
+                isError: true,
+                message: error.response.data.message,
+              };
             }
           });
       }

@@ -140,8 +140,16 @@
         </div>
       </form>
     </div>
+    <div v-if="isLoading" class="text-center mt-5">
+      <div
+        class="spinner-grow spinner-grow-lg"
+        role="status"
+        aria-hidden="true"
+      ></div>
+      <div>Sedang Mendapatkan data...</div>
+    </div>
     <div
-      v-if="!recipesData.data?.length > 0"
+      v-else-if="!recipesData.data?.length > 0"
       class="row d-flex justify-content-md-center"
     >
       <h1 class="text-center">Anda tidak memiliki resep, Buat resep baru</h1>
@@ -204,6 +212,7 @@ export default {
       message: "",
       categories: [],
       levels: [],
+      isLoading: true,
     };
   },
   mounted() {
@@ -340,11 +349,13 @@ export default {
         })
         .then((response) => {
           this.recipesData = response.data;
+          this.isLoading = false;
         })
         .catch((error) => {
           if (error.response) {
-            this.$store.dispatch("clearToken");
-            this.$router.push("/login");
+            this.message = error.data?.message;
+            // this.$store.dispatch("clearToken");
+            // this.$router.push("/login");
           }
         });
     },
@@ -360,8 +371,9 @@ export default {
         })
         .catch((error) => {
           if (error.response.status === 401 || error.response.status === 404) {
-            this.$store.dispatch("clearToken");
-            this.$router.push("/login");
+            this.message = error.data?.message;
+            // this.$store.dispatch("clearToken");
+            // this.$router.push("/login");
           }
         });
     },
@@ -377,8 +389,9 @@ export default {
         })
         .catch((error) => {
           if (error.response.status === 401 || error.response.status === 404) {
-            this.$store.dispatch("clearToken");
-            this.$router.push("/login");
+            this.message = error.data?.message;
+            // this.$store.dispatch("clearToken");
+            // this.$router.push("/login");
           }
         });
     },
