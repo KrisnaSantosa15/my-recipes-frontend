@@ -34,7 +34,7 @@ export default {
 }
 
 #nav {
-  padding: 30px;
+  padding: 5px;
 }
 
 #nav a {
@@ -52,6 +52,23 @@ export default {
   background-color: lightseagreen;
   border-color: lightseagreen;
 }
+
+.btn.btn-primary {
+  background-color: lightseagreen;
+  border-color: lightseagreen;
+}
+
+.btn.btn-outline-primary {
+  border-color: lightseagreen;
+  color: lightseagreen;
+}
+
+.btn.btn-outline-primary:active,
+.btn.btn-outline-primary:hover {
+  background-color: lightseagreen;
+  color: white;
+}
+
 .btn.btn-primary.filter-button {
   background-color: rgb(231, 229, 229);
   border-color: rgb(231, 229, 229);

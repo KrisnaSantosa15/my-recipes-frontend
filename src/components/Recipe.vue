@@ -17,7 +17,7 @@
           <li>
             <a
               class="dropdown-item text-danger"
-              @click="deleteRecipe(recipesData.id)"
+              @click="deleteRecipe(recipesData.id, recipesData.recipe_name)"
               href="#"
               ><icon :icon="['far', 'trash-can']" /> Hapus</a
             >
@@ -36,7 +36,13 @@
           </p>
           <p
             role="button"
-            @click="toggleFavorite(recipesData.id)"
+            @click="
+              toggleFavorite(
+                recipesData.id,
+                recipesData.is_favorite,
+                recipesData.recipe_name
+              )
+            "
             class="custom-text"
           >
             <icon v-if="recipesData.is_favorite" :icon="['fas', 'star']" />
@@ -46,7 +52,7 @@
         </div>
         <div class="text-center">
           <router-link
-            v-if="['myrecipes'].includes($route.name)"
+            v-if="['myrecipes'].includes($route.name) || recipesData.is_owner === true"
             class="custom-text"
             :to="{
               name: 'editrecipe',
@@ -90,11 +96,11 @@ export default {
     },
   },
   methods: {
-    toggleFavorite(id) {
-      this.$emit("toggle-favorite", id);
+    toggleFavorite(id, isFav, name) {
+      this.$emit("toggle-favorite", { id, isFav, name });
     },
-    deleteRecipe(id) {
-      this.$emit("delete-recipe", id);
+    deleteRecipe(id, name) {
+      this.$emit("delete-recipe", { id, name });
     },
   },
 };

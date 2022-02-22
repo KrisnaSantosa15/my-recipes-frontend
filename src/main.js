@@ -1,4 +1,9 @@
 import "bootstrap/dist/css/bootstrap.css";
+// import { QuillEditor } from "@vueup/vue-quill";
+// import "@vueup/vue-quill/dist/vue-quill.snow.css";
+import VueSweetalert2 from "vue-sweetalert2";
+import "sweetalert2/dist/sweetalert2.min.css";
+
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
@@ -44,6 +49,7 @@ library.add(
 createApp(App)
   .use(store)
   .use(router)
+  .use(VueSweetalert2)
   .component("icon", FontAwesomeIcon)
   .mount("#app");
 

@@ -110,7 +110,10 @@
 
                 <div class="col-12">
                   <label for="how_to_cook" class="form-label"
-                    >Cara Memasak</label
+                    >Cara Memasak
+                    <span class="text-muted"
+                      >(Pisahkan item dengan simbol -)</span
+                    ></label
                   >
                   <textarea
                     name="how_to_cook"
@@ -118,7 +121,7 @@
                     id="how_to_cook"
                     class="form-control"
                     rows="7"
-                    placeholder="Cara memasak"
+                    placeholder="- Masukan bawang&#10;- Masukan gula &#10;- Hidangkan"
                     ref="how_to_cook"
                     @blur="validateHowToCook"
                   ></textarea>
@@ -148,8 +151,8 @@
               <div class="row g-3">
                 <div class="col-12">
                   <label for="recipe_name" class="form-label"
-                    >Nama Resep Masakan</label
-                  >
+                    >Nama Resep Masakan
+                  </label>
                   <input
                     type="text"
                     class="form-control"
@@ -193,12 +196,15 @@
 
                 <div class="col-12">
                   <label for="ingredients" class="form-label"
-                    >Bahan-bahan</label
+                    >Bahan-bahan
+                    <span class="text-muted"
+                      >(Pisahkan item dengan simbol -)</span
+                    ></label
                   >
                   <textarea
                     class="form-control"
                     id="ingredients"
-                    placeholder="Bahan-bahan"
+                    placeholder="- Bawang merah&#10;- Gula &#10;- Garam"
                     v-model="formData.ingredients"
                     rows="7"
                     ref="ingredients"

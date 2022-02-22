@@ -49,17 +49,18 @@
         <div class="my-3">
           <h4 class="custom-header">Bahan-bahan</h4>
           <ul>
-            {{
-              recipe.ingredients
-            }}
+            <!-- <pre>{{ recipe.ingredients }}</pre> -->
+            <li v-for="(ing, index) in ingredients" :key="index">
+              {{ ing }}
+            </li>
           </ul>
         </div>
         <div class="my-3">
           <h4 class="custom-header">Cara Memasak</h4>
           <ol>
-            {{
-              recipe.how_to_cook
-            }}
+            <li v-for="(item, index) in how_to_cook" :key="index">
+              {{ item }}
+            </li>
           </ol>
         </div>
       </div>
@@ -75,6 +76,8 @@ export default {
   data() {
     return {
       recipe: [],
+      ingredients: [],
+      how_to_cook: [],
     };
   },
   mounted() {
@@ -85,6 +88,11 @@ export default {
     }
   },
   methods: {
+    formatText(text, delimiter) {
+      let splittedText = text.split(delimiter);
+      let removeIndexZero = splittedText.splice(1, splittedText.length);
+      return removeIndexZero;
+    },
     async getRecipe() {
       if (this.$store.state.token != null) {
         await axios
@@ -95,18 +103,20 @@ export default {
           })
           .then((response) => {
             this.recipe = response.data.data;
+
+            this.ingredients = this.formatText(this.recipe.ingredients, "-");
+            this.how_to_cook = this.formatText(this.recipe.how_to_cook, "-");
           })
           .catch((error) => {
             if (
               error.response.status === 401 ||
               error.response.status === 404
             ) {
-              this.$store.dispatch("clearToken");
-              this.$router.push("/login");
+              //   this.$store.dispatch("clearToken");
+              //   this.$router.push("/login");
+              alert("Something went wrong");
             }
           });
-      } else {
-        this.$router.push("/login");
       }
     },
   },

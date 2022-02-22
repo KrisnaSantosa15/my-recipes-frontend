@@ -24,10 +24,18 @@
             <div class="col-md-6 col-lg-6 order-md-last">
               <div class="row g-3">
                 <div class="col-12">
-                  <label for="category" class="form-label"
+                  <div v-if="isLoading.categories">
+                    <div
+                      class="spinner-border spinner-border-sm text-danger"
+                      role="status"
+                    ></div>
+                    <span class="text-muted"> Getting new categories...</span>
+                  </div>
+                  <label v-else for="category" class="form-label"
                     >Kategori Masakan
                   </label>
                   <select
+                    :disabled="isLoading.categories"
                     name="category"
                     v-model="formData.category_id"
                     id="category"
@@ -77,10 +85,18 @@
                 </div>
 
                 <div class="col-sm-6">
-                  <label for="level" class="form-label"
+                  <div v-if="isLoading.levels">
+                    <div
+                      class="spinner-border spinner-border-sm text-danger"
+                      role="status"
+                    ></div>
+                    <span class="text-muted"> Getting new categories...</span>
+                  </div>
+                  <label v-else for="level" class="form-label"
                     >Tingkat Kesulitan</label
                   >
                   <select
+                    :disabled="isLoading.levels"
                     name="level"
                     v-model="formData.level_id"
                     id="level"
@@ -110,7 +126,10 @@
 
                 <div class="col-12">
                   <label for="how_to_cook" class="form-label"
-                    >Cara Memasak</label
+                    >Cara Memasak
+                    <span class="text-muted"
+                      >(Pisahkan item dengan simbol -)</span
+                    ></label
                   >
                   <textarea
                     name="how_to_cook"
@@ -118,7 +137,7 @@
                     id="how_to_cook"
                     class="form-control"
                     rows="7"
-                    placeholder="Cara memasak"
+                    placeholder="- Masukan bawang&#10;- Masukan gula &#10;- Hidangkan"
                     ref="how_to_cook"
                     @blur="validateHowToCook"
                   ></textarea>
@@ -135,12 +154,18 @@
               <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-3">
                 <button
                   @click="$router.go(-1)"
-                  class="btn btn-outline-primary mr-5"
+                  class="btn btn-outline-primary custom-button-outline-primary mr-5"
                   type="button"
                 >
                   Batal
                 </button>
-                <button class="btn btn-primary" type="submit">Submit</button>
+                <button
+                  class="btn btn-primary custom-button-primary"
+                  :disabled="isLoading.categories || isLoading.levels"
+                  type="submit"
+                >
+                  Submit
+                </button>
               </div>
             </div>
 
@@ -193,12 +218,15 @@
 
                 <div class="col-12">
                   <label for="ingredients" class="form-label"
-                    >Bahan-bahan</label
+                    >Bahan-bahan
+                    <span class="text-muted"
+                      >(Pisahkan item dengan simbol -)</span
+                    ></label
                   >
                   <textarea
                     class="form-control"
                     id="ingredients"
-                    placeholder="Bahan-bahan"
+                    placeholder="- Bawang merah&#10;- Gula &#10;- Garam"
                     v-model="formData.ingredients"
                     rows="7"
                     ref="ingredients"
@@ -249,6 +277,10 @@ export default {
       errorMessage: {
         isError: false,
         message: "",
+      },
+      isLoading: {
+        categories: true,
+        levels: true,
       },
       categories: [],
       levels: [],
@@ -315,6 +347,7 @@ export default {
         })
         .then((response) => {
           this.categories = response.data.data;
+          this.isLoading.categories = false;
         })
         .catch((error) => {
           if (error.response.status === 401 || error.response.status === 404) {
@@ -332,6 +365,7 @@ export default {
         })
         .then((response) => {
           this.levels = response.data.data;
+          this.isLoading.levels = false;
         })
         .catch((error) => {
           if (error.response.status === 401 || error.response.status === 404) {
@@ -414,4 +448,4 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped></style>

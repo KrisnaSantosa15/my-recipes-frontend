@@ -1,9 +1,15 @@
 <template>
   <nav id="nav" class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-      <router-link class="navbar-brand" to="/"
-        >Logo yg kek di login</router-link
-      >
+      <router-link class="navbar-brand" to="/">
+        <img
+          :src="image"
+          alt="Avatar"
+          style="width: 40px"
+          class="text-center"
+        />
+        Buku Resep 79
+      </router-link>
       <button
         class="navbar-toggler"
         type="button"
@@ -66,8 +72,14 @@
 
 <script>
 import axios from "axios";
+import Logo from "@/assets/logo.png";
 export default {
   name: "Navbar",
+  data() {
+    return {
+      image: Logo,
+    };
+  },
   methods: {
     logout() {
       axios
