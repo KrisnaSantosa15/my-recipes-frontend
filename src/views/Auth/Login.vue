@@ -157,7 +157,7 @@ export default {
   methods: {
     onSubmit() {
       axios
-        .post("http://my-recipes-api.test/api/login", this.credentials)
+        .post(this.$urlApi + "login", this.credentials)
         .then((response) => {
           if (response.data.access_token) {
             this.$store.dispatch("setToken", response.data.access_token);

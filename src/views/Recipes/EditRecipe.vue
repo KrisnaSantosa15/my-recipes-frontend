@@ -276,7 +276,7 @@ export default {
     async getRecipe() {
       if (this.$store.state.token != null) {
         await axios
-          .get(`http://my-recipes-api.test/api/recipes/${this.id}`, {
+          .get(this.$urlApi + `recipes/${this.id}`, {
             headers: {
               Authorization: `Bearer ${this.$store.state.token}`,
             },
@@ -299,15 +299,11 @@ export default {
     },
     async onSubmit() {
       await axios
-        .put(
-          "http://my-recipes-api.test/api/recipes/" + this.id,
-          this.formData,
-          {
-            headers: {
-              Authorization: `Bearer ${this.$store.state.token}`,
-            },
-          }
-        )
+        .put(this.$urlApi + "recipes/" + this.id, this.formData, {
+          headers: {
+            Authorization: `Bearer ${this.$store.state.token}`,
+          },
+        })
         .then((response) => {
           if (response.data) {
             this.$router.push({
@@ -346,7 +342,7 @@ export default {
     },
     async getCategories() {
       await axios
-        .get(`http://my-recipes-api.test/api/categories`, {
+        .get(this.$urlApi + `categories`, {
           headers: {
             Authorization: `Bearer ${this.$store.state.token}`,
           },
@@ -363,7 +359,7 @@ export default {
     },
     async getLevels() {
       await axios
-        .get(`http://my-recipes-api.test/api/levels`, {
+        .get(this.$urlApi + `levels`, {
           headers: {
             Authorization: `Bearer ${this.$store.state.token}`,
           },

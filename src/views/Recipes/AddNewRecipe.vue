@@ -300,7 +300,7 @@ export default {
   methods: {
     async onSubmit() {
       await axios
-        .post("http://my-recipes-api.test/api/recipes", this.formData, {
+        .post(this.$urlApi + "recipes", this.formData, {
           headers: {
             Authorization: `Bearer ${this.$store.state.token}`,
           },
@@ -343,7 +343,7 @@ export default {
     },
     async getCategories() {
       await axios
-        .get(`http://my-recipes-api.test/api/categories`, {
+        .get(this.$urlApi + `categories`, {
           headers: {
             Authorization: `Bearer ${this.$store.state.token}`,
           },
@@ -361,7 +361,7 @@ export default {
     },
     async getLevels() {
       await axios
-        .get(`http://my-recipes-api.test/api/levels`, {
+        .get(this.$urlApi + `levels`, {
           headers: {
             Authorization: `Bearer ${this.$store.state.token}`,
           },

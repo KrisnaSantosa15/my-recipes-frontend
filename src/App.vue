@@ -74,4 +74,22 @@ export default {
   border-color: rgb(231, 229, 229);
   color: black;
 }
+
+.inner-addon {
+  position: relative;
+}
+.inner-addon .search-icon {
+  position: absolute;
+  cursor: pointer;
+}
+
+.left-addon .search-icon {
+  left: 20px;
+  top: 10px;
+  color: rgb(231, 229, 229);
+}
+.left-addon input {
+  padding-left: 30px;
+  text-indent: 5px;
+}
 </style>

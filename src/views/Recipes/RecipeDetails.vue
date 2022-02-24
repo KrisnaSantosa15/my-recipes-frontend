@@ -47,7 +47,7 @@
           </div>
         </div>
         <div class="my-3">
-          <h4 class="custom-header">Bahan-bahan</h4>
+          <h4 class="custom-header">Bahan - bahan</h4>
           <ul>
             <!-- <pre>{{ recipe.ingredients }}</pre> -->
             <li v-for="(ing, index) in ingredients" :key="index">
@@ -82,7 +82,7 @@ export default {
   },
   mounted() {
     if (this.$store.state.token != null) {
-      this.this.getRecipe();
+      this.getRecipe();
     } else if (!this.id) {
       this.$router.push("/recipes");
     } else {
@@ -101,7 +101,7 @@ export default {
     async getRecipe() {
       if (this.$store.state.token != null) {
         await axios
-          .get(`http://my-recipes-api.test/api/recipes/${this.id}`, {
+          .get(this.$urlApi + `recipes/${this.id}`, {
             headers: {
               Authorization: `Bearer ${this.$store.state.token}`,
             },
@@ -119,7 +119,7 @@ export default {
             ) {
               //   this.$store.dispatch("clearToken");
               //   this.$router.push("/login");
-              alert("Something went wrong");
+              this.$router.go(-1);
             }
           });
       }

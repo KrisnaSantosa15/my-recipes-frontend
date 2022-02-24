@@ -95,7 +95,7 @@
                 </div>
               </div>
               <label for="password_confirmation" class="form-label my-1 mt-2"
-                >Confirm Passowrd</label
+                >Confirm Password</label
               >
               <div class="input-group">
                 <input
@@ -180,7 +180,7 @@ export default {
   methods: {
     async onSubmit() {
       await axios
-        .post("http://my-recipes-api.test/api/register", this.credentials)
+        .post(this.$urlApi + "register", this.credentials)
         .then((response) => {
           if (response.data.message) {
             this.$router.push({
@@ -200,7 +200,6 @@ export default {
             this.$refs.full_name.classList.add("is-invalid");
             this.errors.password = error.response.data.errors.password;
             this.$refs.password.classList.add("is-invalid");
-            console.log(error.response.data);
           }
         });
     },
@@ -208,7 +207,7 @@ export default {
       const input = this.$refs.password;
       if (input.type === "password") {
         input.type = "text";
-        this.isVisble.password = true;
+        this.isVisible.password = true;
       } else {
         input.type = "password";
         this.isVisible.password = false;
@@ -218,7 +217,7 @@ export default {
       const input = this.$refs.password_confirmation;
       if (input.type === "password") {
         input.type = "text";
-        this.isVisble.confirm = true;
+        this.isVisible.confirm = true;
       } else {
         input.type = "password";
         this.isVisible.confirm = false;

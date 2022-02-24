@@ -84,7 +84,7 @@ export default {
     logout() {
       axios
         .post(
-          "http://my-recipes-api.test/api/logout",
+          this.$urlApi + "logout",
           {},
           {
             headers: {

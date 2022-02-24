@@ -39,12 +39,18 @@
             <icon :icon="['fas', 'plus']" /> Tambah Resep
           </router-link>
         </div>
-        <div class="col-4">
+        <div class="col-4 inner-addon left-addon">
+          <icon
+            :icon="['fas', 'magnifying-glass']"
+            class="search-icon form-control-feedback"
+            size="lg"
+            @click="getMyRecipes()"
+          />
           <input
             class="form-control"
             id="search"
             v-model="search.recipe_name"
-            placeholder="Type to search..."
+            placeholder="Cari Resep"
           />
         </div>
         <div class="col-2">
@@ -72,51 +78,141 @@
                   aria-label="Close"
                 ></button>
               </div>
-              <div class="modal-body">
-                <h3>Search By:</h3>
-                <div>
-                  <label for="category" class="form-label"
-                    >Tingkat Kesulitan
-                  </label>
-                  <select
-                    name="level"
-                    v-model="search.level"
-                    id="level"
-                    class="form-select"
-                    ref="level"
-                  >
-                    <option value="" disabled selected>
-                      Pilih Tingkat Kesulitan
-                    </option>
-                    <option
-                      v-for="level in levels"
-                      :key="level.id"
-                      :value="level.name"
+              <div class="modal-body gy-2 gx-3 align-items-center">
+                <div class="row">
+                  <div class="col-auto">
+                    <label for="category" class="form-label"
+                      >Tingkat Kesulitan
+                    </label>
+                    <select
+                      name="level"
+                      v-model="search.level"
+                      id="level"
+                      class="form-select"
+                      ref="level"
                     >
-                      {{ level.name }}
-                    </option>
-                  </select>
+                      <option value="" disabled selected>
+                        Pilih Tingkat Kesulitan
+                      </option>
+                      <option
+                        v-for="level in levels"
+                        :key="level.id"
+                        :value="level.name"
+                      >
+                        {{ level.name }}
+                      </option>
+                    </select>
+                  </div>
+                  <div class="col-auto">
+                    <label for="category" class="form-label"
+                      >Kategori Masakan
+                    </label>
+                    <select
+                      name="category"
+                      v-model="search.category"
+                      id="category"
+                      class="form-select"
+                      ref="category"
+                    >
+                      <option value="" disabled selected>Pilih Kategori</option>
+                      <option
+                        v-for="category in categories"
+                        :key="category.id"
+                        :value="category.category_name"
+                      >
+                        {{ category.category_name }}
+                      </option>
+                    </select>
+                  </div>
                 </div>
-                <div>
-                  <label for="category" class="form-label"
-                    >Kategori Masakan
-                  </label>
-                  <select
-                    name="category"
-                    v-model="search.category"
-                    id="category"
-                    class="form-select"
-                    ref="category"
-                  >
-                    <option value="" disabled selected>Pilih Kategori</option>
-                    <option
-                      v-for="category in categories"
-                      :key="category.id"
-                      :value="category.category_name"
+                <h5 class="mt-2">Cari berdasarkan:</h5>
+                <div class="row m-1">
+                  <div class="form-check form-check-inline col-auto">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      id="inlineCheckbox1"
+                      v-model="search.ingredients"
+                    />
+                    <label class="form-check-label" for="inlineCheckbox1"
+                      >Bahan - bahan</label
                     >
-                      {{ category.category_name }}
-                    </option>
-                  </select>
+                  </div>
+                  <div class="form-check form-check-inline col-auto">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      id="inlineCheckbox2"
+                      v-model="search.how_to_cook"
+                    />
+                    <label class="form-check-label" for="inlineCheckbox2"
+                      >Cara Memasak</label
+                    >
+                  </div>
+                </div>
+                <h5 class="mt-2">Waktu memasak:</h5>
+                <div class="row m-1">
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="flexRadioDefault"
+                      id="1to10"
+                      value="1to10"
+                      v-model="search.timeBetween"
+                    />
+                    <label class="form-check-label" for="1to10">
+                      1 sampai 10 Menit
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="flexRadioDefault"
+                      id="10to30"
+                      value="10to30"
+                      v-model="search.timeBetween"
+                    />
+                    <label class="form-check-label" for="10to30">
+                      10 sampai 30 Menit
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="flexRadioDefault"
+                      id="30to60"
+                      value="30to60"
+                      v-model="search.timeBetween"
+                    />
+                    <label class="form-check-label" for="30to60">
+                      30 Menit sampai 1 Jam
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="flexRadioDefault"
+                      id="60"
+                      value="60to999999999"
+                      v-model="search.timeBetween"
+                    />
+                    <label class="form-check-label" for="60"> > 1 Jam </label>
+                  </div>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="flexRadioDefault"
+                      id="180"
+                      value="180to999999999"
+                      v-model="search.timeBetween"
+                    />
+                    <label class="form-check-label" for="180"> > 3 Jam </label>
+                  </div>
                 </div>
               </div>
               <div class="modal-footer">
@@ -166,7 +262,9 @@
         @toggle-favorite="toggleFavorite"
         @delete-recipe="deleteRecipe"
       />
-      <nav>
+      <nav
+        v-if="recipesData.links?.next != null || recipesData.links.prev != null"
+      >
         <ul class="pagination justify-content-center">
           <li
             class="page-item"
@@ -204,10 +302,12 @@ export default {
     return {
       recipesData: {},
       search: {
+        recipe_name: null,
         category: null,
         level: null,
-        // ingredients: null,
-        recipe_name: null,
+        timeBetween: null,
+        ingredients: false,
+        how_to_cook: false,
       },
       message: "",
       categories: [],
@@ -242,17 +342,23 @@ export default {
       }).then((result) => {
         if (result.isConfirmed) {
           axios
-            .delete(`http://my-recipes-api.test/api/recipes/${recipeData.id}`, {
+            .delete(this.$urlApi + `recipes/${recipeData.id}`, {
               headers: {
                 Authorization: `Bearer ${this.$store.state.token}`,
               },
             })
             .then((response) => {
               this.message = response.data.message;
-              this.getMyRecipes(
-                "http://my-recipes-api.test/api/search-my-recipes?page=" +
-                  this.recipesData.meta?.current_page
-              );
+              if (this.recipesData.data?.length <= 1) {
+                this.getMyRecipes();
+              } else {
+                this.getMyRecipes(
+                  this.$urlApi +
+                    "search-my-recipes?page=" +
+                    this.recipesData.meta?.current_page
+                );
+              }
+
               this.$swal("Success!", "Resep berhasil dihapus.", "success");
             })
             .catch((error) => {
@@ -280,19 +386,16 @@ export default {
         }).then((result) => {
           if (result.isConfirmed) {
             axios
-              .get(
-                "http://my-recipes-api.test/api/toggle-favorite/" +
-                  recipeData.id,
-                {
-                  headers: {
-                    Authorization: `Bearer ${this.$store.state.token}`,
-                  },
-                }
-              )
+              .get(this.$urlApi + "toggle-favorite/" + recipeData.id, {
+                headers: {
+                  Authorization: `Bearer ${this.$store.state.token}`,
+                },
+              })
               .then((response) => {
                 this.message = response.data.message;
                 this.getMyRecipes(
-                  "http://my-recipes-api.test/api/search-my-recipes?page=" +
+                  this.$urlApi +
+                    "search-my-recipes?page=" +
                     this.recipesData.meta?.current_page
                 );
                 this.$swal(
@@ -310,18 +413,16 @@ export default {
         });
       } else {
         axios
-          .get(
-            "http://my-recipes-api.test/api/toggle-favorite/" + recipeData.id,
-            {
-              headers: {
-                Authorization: `Bearer ${this.$store.state.token}`,
-              },
-            }
-          )
+          .get(this.$urlApi + "toggle-favorite/" + recipeData.id, {
+            headers: {
+              Authorization: `Bearer ${this.$store.state.token}`,
+            },
+          })
           .then((response) => {
             this.message = response.data.message;
             this.getMyRecipes(
-              "http://my-recipes-api.test/api/search-my-recipes?page=" +
+              this.$urlApi +
+                "search-my-recipes?page=" +
                 this.recipesData.meta?.current_page
             );
             this.$swal(
@@ -337,12 +438,30 @@ export default {
           });
       }
     },
-    async getMyRecipes(
-      link = "http://my-recipes-api.test/api/search-my-recipes"
-    ) {
+    async getMyRecipes(link = this.$urlApi + "search-my-recipes") {
+      let querySearching = {};
+      if (this.search.recipe_name != null) {
+        querySearching.recipe_name = this.search.recipe_name;
+      }
+      if (this.search.category != null) {
+        querySearching.category = this.search.category;
+      }
+      if (this.search.level != null) {
+        querySearching.level = this.search.level;
+      }
+      if (this.search.timeBetween != null) {
+        querySearching.timeBetween = this.search.timeBetween;
+      }
+      if (this.search.ingredients != false) {
+        querySearching.ingredients = this.search.ingredients;
+      }
+      if (this.search.how_to_cook != false) {
+        querySearching.how_to_cook = this.search.how_to_cook;
+      }
+      this.isLoading = true;
       await axios
         .get(link, {
-          params: this.search,
+          params: querySearching,
           headers: {
             Authorization: `Bearer ${this.$store.state.token}`,
           },
@@ -361,7 +480,7 @@ export default {
     },
     async getCategories() {
       await axios
-        .get(`http://my-recipes-api.test/api/categories`, {
+        .get(this.$urlApi + `categories`, {
           headers: {
             Authorization: `Bearer ${this.$store.state.token}`,
           },
@@ -379,7 +498,7 @@ export default {
     },
     async getLevels() {
       await axios
-        .get(`http://my-recipes-api.test/api/levels`, {
+        .get(this.$urlApi + `levels`, {
           headers: {
             Authorization: `Bearer ${this.$store.state.token}`,
           },
@@ -399,6 +518,9 @@ export default {
       this.search.category = null;
       this.search.level = null;
       this.search.recipe_name = null;
+      this.search.timeBetween = null;
+      this.search.ingredients = false;
+      this.search.how_to_cook = false;
     },
   },
 };

@@ -17,7 +17,7 @@ export default {
   mounted() {
     if (this.$store.state.token != null) {
       axios
-        .get("http://my-recipes-api.test/api/recipes", {
+        .get(this.$urlApi + "recipes", {
           headers: {
             Authorization: `Bearer ${this.$store.state.token}`,
           },

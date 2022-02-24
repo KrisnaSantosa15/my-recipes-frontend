@@ -46,11 +46,15 @@ library.add(
   farTrashCan
 );
 
-createApp(App)
+const app = createApp(App)
   .use(store)
   .use(router)
   .use(VueSweetalert2)
-  .component("icon", FontAwesomeIcon)
-  .mount("#app");
+  .component("icon", FontAwesomeIcon);
+
+app.config.globalProperties.$urlApi = "http://localhost:8000/api/";
+// app.config.globalProperties.$urlApi = "http://my-recipes-api.test/api/";
+
+app.mount("#app");
 
 import "bootstrap/dist/js/bootstrap.js";
