@@ -40,7 +40,7 @@ Ubah sesuai dengan URL pada server Laravel yang dijalankan
 npm run serve
 ```
 
-6. Buka browser dan akses http://localhost:8080/register
+6. Buka browser dan akses http://localhost:8080/api/register
 7. Daftarkan diri anda pada form yang tersedia
 
 ## See You
